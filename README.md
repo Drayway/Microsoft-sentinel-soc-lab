@@ -211,7 +211,7 @@ SecurityEvent
     by Account, Computer, IpAddress
 ```
 
-![Authentication summary](screenshots/04-investigate/02-authentication-summary.png)
+![Authentication summary](02-authentication-summary.png)
 
 The investigation also included reviewing authentication packages and logon processes, Sentinel/Defender entity context, threat-intelligence reputation, and Advanced Hunting for additional activity.
 
