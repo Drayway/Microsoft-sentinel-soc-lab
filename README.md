@@ -54,14 +54,13 @@ I created an Azure Windows Server 2022 Datacenter VM in the `SOC-Lab-RG` resourc
 
 ![Create Windows Server VM](01-create-windows-server-vm.png)
 
-
 The VM was deployed with the supporting Azure networking resources required for the lab, including a virtual network, network security group, and public IP resource.
 
-![VM deployment](screenshots/01-build/02-vm-deployment.png)
+![VM deployment](02-vm-deployment.png)
 
 After deployment, I verified the Windows Server VM was running and ready for management.
 
-![VM running](screenshots/01-build/03-vm-running-redacted.png)
+![VM running](03-vm-running-redacted.png)
 
 ### Security note
 
@@ -75,31 +74,31 @@ RDP was required to generate authentication telemetry for this controlled lab. I
 
 I created the `SOC-Sentinel-LAW` Log Analytics workspace to provide centralized storage and querying for security telemetry.
 
-![Log Analytics workspace](screenshots/02-onboard/01-log-analytics-workspace.png)
+![Log Analytics workspace](01-log-analytics-workspace.png)
 
 ## 3. Install the Windows Security Events Solution
 
 Inside Microsoft Sentinel Content Hub, I located the **Windows Security Events** solution.
 
-![Windows Security Events Content Hub](screenshots/02-onboard/02-content-hub-windows-security-events.png)
+![Windows Security Events Content Hub](02-content-hub-windows-security-events.png)
 
 After installation, the solution exposed the **Windows Security Events via AMA** connector and supporting Sentinel content.
 
-![Windows Security Events installed](screenshots/02-onboard/03-windows-security-events-installed.png)
+![Windows Security Events installed](03-windows-security-events-installed.png)
 
 ## 4. Configure Windows Security Events via AMA
 
 I opened the Windows Security Events via AMA connector and created a Data Collection Rule.
 
-![AMA data connector](screenshots/02-onboard/04-ama-data-connector.png)
+![AMA data connector](04-ama-data-connector.png)
 
 The DCR targeted `SOC-Windows-01`, allowing the Azure Monitor Agent to collect Windows Security Event telemetry from the VM.
 
-![DCR resource selection](screenshots/02-onboard/05-dcr-vm-resource.png)
+![DCR resource selection](05-dcr-vm-resource.png)
 
 The rule was configured to collect Security Events and passed Azure validation.
 
-![DCR validation](screenshots/02-onboard/06-dcr-validation.png)
+![DCR validation](06-dcr-validation.png)
 
 ---
 
@@ -114,7 +113,7 @@ SecurityEvent
 | take 20
 ```
 
-![Security event ingestion](screenshots/03-detect/01-security-events-ingesting.png)
+![Security event ingestion](01-security-events-ingesting.png)
 
 ## 6. Identify Failed Authentication Events
 
@@ -129,7 +128,7 @@ SecurityEvent
 | sort by TimeGenerated desc
 ```
 
-![Failed logons](screenshots/03-detect/02-failed-logons-kql.png)
+![Failed logons](02-failed-logons-kql.png)
 
 ### Detection-engineering lesson
 
@@ -163,13 +162,13 @@ I converted this query into a scheduled Sentinel analytics rule.
 | Detection threshold | 3+ failed attempts |
 | Incident creation | Enabled |
 
-![Analytics rule](screenshots/03-detect/03-analytics-rule-enabled.png)
+![Analytics rule](03-analytics-rule-enabled.png)
 
 ## 8. Generate and Validate the Incident
 
 After generating controlled failed authentication attempts, Sentinel created the expected incident.
 
-![Incident created](screenshots/03-detect/04-incident-created.png)
+![Entity mapping](05-entity-mapping.png)
 
 ---
 
@@ -183,11 +182,11 @@ I mapped the detection output to native Sentinel entities:
 | Account | FullName | `Account` |
 | Host | HostName | `Computer` |
 
-![Entity mapping](screenshots/03-detect/05-entity-mapping.png)
+![Incident entities](01-incident-with-entities.png)
 
 This allowed subsequent incidents to display the host, account, and source-IP relationships directly in the investigation graph.
 
-![Incident entities](screenshots/04-investigate/01-incident-with-entities.png)
+![Authentication summary](02-authentication-summary.png)
 
 ---
 
@@ -226,7 +225,7 @@ The incident was therefore resolved as:
 
 **Informational, expected activity → Security testing**
 
-![Incident classification](screenshots/04-investigate/03-incident-classification.png)
+![Incident classification](03-incident-classification.png)
 
 ## Incident Lifecycle Completed
 
