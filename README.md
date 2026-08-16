@@ -186,7 +186,7 @@ I mapped the detection output to native Sentinel entities:
 
 This allowed subsequent incidents to display the host, account, and source-IP relationships directly in the investigation graph.
 
-![Authentication summary](02-authentication-summary.png)
+![Incident entities](screenshots/04-investigate/01-incident-with-entities.png)
 
 ---
 
