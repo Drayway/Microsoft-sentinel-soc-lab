@@ -52,7 +52,8 @@ Azure Resource Group
 
 I created an Azure Windows Server 2022 Datacenter VM in the `SOC-Lab-RG` resource group and named the endpoint `SOC-Windows-01`.
 
-![Create Windows Server VM](screenshots/01-build/01-create-windows-server-vm.png)
+![Create Windows Server VM](01-create-windows-server-vm.png)
+
 
 The VM was deployed with the supporting Azure networking resources required for the lab, including a virtual network, network security group, and public IP resource.
 
