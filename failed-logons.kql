@@ -1,0 +1,6 @@
+SecurityEvent
+| where TimeGenerated > ago(10m)
+| where EventID == 4625
+| where LogonType in (3, 10)
+| project TimeGenerated, Computer, Account, IpAddress, LogonType
+| sort by TimeGenerated desc

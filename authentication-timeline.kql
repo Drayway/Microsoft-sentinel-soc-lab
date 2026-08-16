@@ -1,0 +1,6 @@
+SecurityEvent
+| where TimeGenerated > ago(2h)
+| where Account == @"SOC-Windows-01\socadmin"
+| where EventID in (4624, 4625)
+| project TimeGenerated, EventID, Activity, Account, IpAddress, LogonType, Computer
+| sort by TimeGenerated asc

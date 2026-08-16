@@ -1,0 +1,9 @@
+SecurityEvent
+| where EventID == 4625
+| where LogonType in (3, 10)
+| summarize
+    FailedAttempts = count(),
+    FirstAttempt = min(TimeGenerated),
+    LastAttempt = max(TimeGenerated)
+    by IpAddress, Account, Computer, LogonType
+| where FailedAttempts >= 3

@@ -1,0 +1,6 @@
+# Local/private artifacts
+*.rdp
+*.key
+*.pem
+.env
+private/

@@ -1,0 +1,7 @@
+SecurityEvent
+| where TimeGenerated > ago(24h)
+| summarize
+    TotalEvents = count(),
+    FailedLogons = countif(EventID == 4625),
+    SuccessfulLogons = countif(EventID == 4624)
+    by Account, Computer, IpAddress

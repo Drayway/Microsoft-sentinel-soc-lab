@@ -1,0 +1,16 @@
+SecurityEvent
+| where TimeGenerated > ago(2h)
+| where EventID == 4624
+| where Account == @"SOC-Windows-01\socadmin"
+| project
+    TimeGenerated,
+    Account,
+    IpAddress,
+    IpPort,
+    LogonType,
+    LogonProcessName,
+    AuthenticationPackageName,
+    ProcessName,
+    WorkstationName,
+    Computer
+| sort by TimeGenerated desc
